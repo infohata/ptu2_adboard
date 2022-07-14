@@ -1,0 +1,7 @@
+body.adboard-body {background-color: #ccc;}
+.container {
+    background-color: rgba(255, 255, 255, 0.8); 
+    border-left: 5px solid #999; 
+    border-right: 5px solid #999;
+    padding-bottom: 1rem;
+}
