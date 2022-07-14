@@ -66,4 +66,3 @@ class AdPost(models.Model):
         verbose_name = 'advertisement post'
         verbose_name_plural = 'advertisement posts'
         ordering = ('-promoted', '-created_at', )
-
