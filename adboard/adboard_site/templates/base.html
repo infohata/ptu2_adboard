@@ -12,28 +12,37 @@
 </head>
 <body class="adboard-body">
     <div class="d-flex flex-column min-vh-100">
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-light">
-            <div class="container">
-                <span class="logo mr-auto d-lg-none">AD-board</span>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-control="navbarContent" aria-expanded="false" aria-label="toggle-navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarContent">
-                    <span class="logo mr-2 d-none d-lg-inline">AD-board</span>
-                    <ul class="navbar-nav mr-auto">{% block nav_main %}
-                        main menu
-                    {% endblock nav_main %}</ul>
-                    <ul class="navbar-nav">{% block nav_user %}
-                        user menu
-                    {% endblock nav_user %}</ul>
-                </div>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark text-light shadow">
+        <div class="container">
+            <span class="logo mr-auto d-lg-none">AD-board</span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-control="navbarContent" aria-expanded="false" aria-label="toggle-navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <span class="logo mr-2 d-none d-lg-inline">AD-board</span>
+                <ul class="navbar-nav mr-auto">{% block nav_main %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">{% trans "home"|capfirst %}</a></li>
+                {% endblock nav_main %}</ul>
+                <ul class="navbar-nav">{% block nav_user %}
+                    {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="userMenuDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                                {{ user.username}}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="userMenuDropdown">
+                                <a class="dropdown-item" href="#">{% trans "logout" %}</a>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="#">{% trans "log in"|capfirst %}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">{% trans "sign up"|capfirst %}</a></li>
+                    {% endif %}
+                {% endblock nav_user %}</ul>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
     <main class="mb-0 py-0 flex-fill d-flex justify-content-stretch">
     {% block content %}
-
     {% endblock content %}
     </main>
     <footer class="bg-dark text-light">
