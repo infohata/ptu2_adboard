@@ -33,6 +33,7 @@
                                 {% if user.is_superuser %}
                                     <a class="dropdown-item" href="{% url 'admin:index' %}">{% trans "admin"|capfirst %}</a>
                                 {% endif %}
+                                <a class="dropdown-item" href="{% url 'user_update' %}">{% trans "update profile"|capfirst %}</a>
                                 <a class="dropdown-item" href="{% url 'logout' %}">{% trans "logout"|capfirst %}</a>
                             </div>
                         </li>
@@ -44,9 +45,17 @@
             </div>
         </div>
     </nav>
+    {% block messages %}{% if messages %}
+    <section class="messages">
+        <div class="container">
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}{% endblock messages %}
     <main class="mb-0 py-0 flex-fill d-flex justify-content-stretch">
-    {% block content %}
-    {% endblock content %}
+        {% block content %}{% endblock content %}
     </main>
     <footer class="bg-dark text-light">
         <div class="container mt-0 py-3 d-flex justify-content-between">
