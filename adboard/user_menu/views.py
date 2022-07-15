@@ -30,4 +30,3 @@ class UserUpdate(LoginRequiredMixin, generic.UpdateView):
     def form_valid(self, form):
         messages.success(self.request, _("User data has been updated successfully"))
         return super().form_valid(form)
-

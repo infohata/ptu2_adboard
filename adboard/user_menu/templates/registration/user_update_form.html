@@ -9,6 +9,9 @@
             {{ form|crispy }}
         </div>
         <div class="form-group">
+            <a href="{% url 'password_change' %}">{% trans "change password"|capfirst %}</a>
+        </div>
+        <div class="form-group">
             <button type="submit" class="btn btn-primary">{% trans "save changes"|capfirst %}</button>
         </div>
     </form>
