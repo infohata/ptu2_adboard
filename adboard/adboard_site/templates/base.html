@@ -27,10 +27,13 @@
                     {% if user.is_authenticated %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="userMenuDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-                                {{ user.username}}
+                                &#128100; {{ user.username}}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="userMenuDropdown">
-                                <a class="dropdown-item" href="{% url 'logout' %}">{% trans "logout" %}</a>
+                                {% if user.is_superuser %}
+                                    <a class="dropdown-item" href="{% url 'admin:index' %}">{% trans "admin"|capfirst %}</a>
+                                {% endif %}
+                                <a class="dropdown-item" href="{% url 'logout' %}">{% trans "logout"|capfirst %}</a>
                             </div>
                         </li>
                     {% else %}
