@@ -21,6 +21,7 @@ from django.urls import include, path
 
 urlpatterns = [
     path('', include('adboard_site.urls')),
+    path('user/', include('user_menu.urls')),
     path('__debug__/', include('debug_toolbar.urls')),
     path('tinymce/', include('tinymce.urls')),
     path('admin/', admin.site.urls),

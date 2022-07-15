@@ -34,6 +34,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'adboard_site',
+    'user_menu',
+    'crispy_forms',
     'tinymce',
     'debug_toolbar',
     'django.contrib.admin',
