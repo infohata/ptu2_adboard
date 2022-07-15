@@ -9,3 +9,6 @@ main .container {
     padding-top: 1rem;
     padding-bottom: 1rem;
 }
+#adboard-site {
+    min-height: calc(100vh - 3rem);
+}
