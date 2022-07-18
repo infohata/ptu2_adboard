@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from model_utils import Choices
 from tinymce.models import HTMLField
@@ -73,6 +74,9 @@ class AdPost(models.Model):
 
     def get_status_style(self):
         return ADPOST_STATUS_STYLE[self.status]
+
+    def get_absolute_url(self):
+        return reverse("adpost_detail", kwargs={"pk": self.pk})
 
     class Meta:
         verbose_name = 'advertisement post'

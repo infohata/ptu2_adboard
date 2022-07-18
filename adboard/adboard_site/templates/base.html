@@ -26,6 +26,7 @@
                 {% endblock nav_main %}</ul>
                 <ul class="navbar-nav">{% block nav_user %}
                     {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'adpost_create' %}">{% trans "new ad"|capfirst %}</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="userMenuDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
                                 &#128100; {{ user.username}}

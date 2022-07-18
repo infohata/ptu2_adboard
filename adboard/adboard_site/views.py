@@ -1,10 +1,10 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
-from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from . import models
+from . import forms, models
 
 
 def index(request):
@@ -29,6 +29,7 @@ def adpost_reserve(request, pk):
     return redirect('adpost_detail', adpost.pk)
 
 
+@login_required
 def adpost_sell(request, pk):
     adpost = get_object_or_404(models.AdPost, pk=pk)
     if request.user == adpost.owner and adpost.status == 20 and adpost.buyer:
@@ -40,6 +41,7 @@ def adpost_sell(request, pk):
     return redirect('adpost_detail', adpost.pk)
 
 
+@login_required
 def adpost_reject(request, pk):
     adpost = get_object_or_404(models.AdPost, pk=pk)
     if request.user == adpost.owner and adpost.status == 20 and adpost.buyer:
@@ -59,3 +61,14 @@ class AdPostList(generic.ListView):
 class AdPostDetail(generic.DetailView):
     model = models.AdPost
     template_name = 'adboard_site/adpost_detail.html'
+
+
+class AdPostCreate(LoginRequiredMixin, generic.CreateView):
+    model = models.AdPost
+    form_class = forms.AdPostForm
+    template_name = 'adboard_site/adpost_create.html'
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        form.instance.status = models.ADPOST_STATUS.new
+        return super().form_valid(form)
