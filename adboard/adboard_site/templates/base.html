@@ -22,6 +22,7 @@
                 <span class="logo mr-2 d-none d-lg-inline">AD-board</span>
                 <ul class="navbar-nav mr-auto">{% block nav_main %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">{% trans "home"|capfirst %}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'adpost_list' %}">{% trans "list"|capfirst %}</a></li>
                 {% endblock nav_main %}</ul>
                 <ul class="navbar-nav">{% block nav_user %}
                     {% if user.is_authenticated %}

@@ -27,6 +27,14 @@ ADPOST_STATUS = Choices(
     (99, 'removed', _('removed')),
 )
 
+ADPOST_STATUS_STYLE = {
+    0: 'primary',
+    10: 'success',
+    20: 'warning',
+    30: 'secondary',
+    90: 'dark',
+    99: 'danger',
+}
 
 class AdPost(models.Model):
     title = models.CharField(_("title"), max_length=127, db_index=True)
@@ -61,7 +69,10 @@ class AdPost(models.Model):
 
     def __str__(self):
         return _('{} by {} from {}').format(self.title, str(self.owner), str(self.created_at))
-    
+
+    def get_status_style(self):
+        return ADPOST_STATUS_STYLE[self.status]
+
     class Meta:
         verbose_name = 'advertisement post'
         verbose_name_plural = 'advertisement posts'

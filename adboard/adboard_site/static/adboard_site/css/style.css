@@ -12,3 +12,7 @@ main .container, section.messages .container {
 #adboard-site {
     min-height: calc(100vh - 3rem);
 }
+.list-group-item.promoted {
+    border: 2px solid #39f;
+    background-color: #eef;
+}
