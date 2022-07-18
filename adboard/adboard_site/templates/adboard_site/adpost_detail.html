@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+<div class="container">
+    <ul class="list-group">
+    {% with object as adpost %}
+        {% include 'adboard_site/includes/adpost_header.html' %}
+    {% endwith %}
+    <li class="list-group-item">
+        {% if object.owner == request.user %}
+            {% if object.status == 20 %}
+                <a href="{% url 'adpost_sell' object.id %}" class="btn btn-success">{% trans "accept purchase and sell"|capfirst %}</a>
+                <a href="{% url 'adpost_reject' object.id %}" class="btn btn-outline-danger">{% trans "reject offer"|capfirst %}</a>
+            {% endif %}
+        {% else %}
+            {% if object.status < 20 and object.buyer != request.user %}
+                <a href="{% url 'adpost_reserve' object.id %}" class="btn btn-warning">{% trans "reserve"|capfirst %}</a>
+            {% endif %}
+        {% endif %}
+        {% if object.buyer == request.user %}
+            {% if object.status == 20 %}
+                <div class="alert alert-warning">{% trans "Waiting purchase approval confirmation from the seller." %}</div>
+            {% elif object.status < 20 %}
+                <div class="alert alert-danger">{% trans "The seller has denied your purchase request." %}</div>
+            {% elif object.status == 30 %}
+                <div class="alert alert-success">{% trans "You have bougth the item. Congratulations." %}</div>
+            {% endif %}
+        {% endif %}
+    </li>
+    <li class="list-group-item">
+        {{ object.description|safe }}
+    </li>
+    </ul>
+</div>
+{% endblock content %}

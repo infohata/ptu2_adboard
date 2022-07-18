@@ -23,7 +23,7 @@ ADPOST_STATUS = Choices(
     (10, 'active', _('active')),
     (20, 'reserved', _('reserved')),
     (30, 'sold', _('sold')),
-    (90, 'canceled', _('canceled')),
+    (90, 'cancelled', _('cancelled')),
     (99, 'removed', _('removed')),
 )
 
@@ -39,6 +39,7 @@ ADPOST_STATUS_STYLE = {
 class AdPost(models.Model):
     title = models.CharField(_("title"), max_length=127, db_index=True)
     description = HTMLField(_("description"), max_length=8190)
+    price = models.DecimalField(_("price"), max_digits=10, decimal_places=2, default=0, db_index=True)
     category = models.ManyToManyField(
         Category, 
         verbose_name=_("categories"), 

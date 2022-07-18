@@ -3,7 +3,7 @@ from . import models
 
 
 class AdPostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'owner', 'status', 'created_at', 'buyer', 'promoted', )
+    list_display = ('title', 'price', 'owner', 'status', 'created_at', 'buyer', 'promoted', )
     list_filter = ('category', 'promoted', 'created_at', 'updated_at', )
     search_fields = ('title', 'owner__username', 'owner__last_name', )
     list_editable = ('promoted', 'status', )

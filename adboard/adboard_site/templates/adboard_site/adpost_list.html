@@ -6,24 +6,7 @@
     {% if adpost_list %}
         <ul class="list-group">
         {% for adpost in adpost_list %}
-            <li class="list-group-item {% if adpost.promoted %}promoted{% endif %}">
-                <h2>{{ adpost.title }}</h2>
-                <!-- status -->
-                <span class="badge badge-pill badge-{{ adpost.get_status_style }}">{{ adpost.get_status_display }}</span>
-                <!-- categories -->
-                {% if adpost.category.count > 0  %}
-                    {% for category in adpost.category.all %}
-                        <span class="badge badge-light badge-pill">{{ category }}</span>
-                    {% endfor %}
-                {% endif %}
-                <!-- datetimes -->
-                <span class="text-muted float-right">
-                {% if adpost.updated_at > adpost.created_at %}
-                    {% trans "updated" %}: {{ adpost.updated_at }}
-                {% endif %}
-                {% trans "posted" %}: {{ adpost.created_at }}
-                </span>
-            </li>
+            {% include 'adboard_site/includes/adpost_header.html' %}
         {% endfor %}
         </ul>
     {% else %}
