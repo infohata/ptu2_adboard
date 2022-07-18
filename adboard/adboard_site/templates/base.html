@@ -35,6 +35,8 @@
                                 {% if user.is_superuser %}
                                     <a class="dropdown-item" href="{% url 'admin:index' %}">{% trans "admin"|capfirst %}</a>
                                 {% endif %}
+                                <a class="dropdown-item" href="{% url 'adpost_list' %}?my=owned">{% trans "my ad posts"|capfirst %}</a>
+                                <a class="dropdown-item" href="{% url 'adpost_list' %}?my=involved">{% trans "my purchases"|capfirst %}</a>
                                 <a class="dropdown-item" href="{% url 'user_update' %}">{% trans "update profile"|capfirst %}</a>
                                 <a class="dropdown-item" href="{% url 'logout' %}">{% trans "logout"|capfirst %}</a>
                             </div>

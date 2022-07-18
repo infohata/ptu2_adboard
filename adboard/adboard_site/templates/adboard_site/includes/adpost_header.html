@@ -10,7 +10,7 @@
         <!-- categories -->
         {% if adpost.category.count > 0  %}
             {% for category in adpost.category.all %}
-                <span class="badge badge-light badge-pill">{{ category }}</span>
+                <a class="badge badge-light badge-pill" href="{% url 'adpost_list' %}?cid={{ category.id }}">{{ category }}</a>
             {% endfor %}
         {% endif %}
         <!-- datetimes -->

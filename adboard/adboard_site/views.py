@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from django.utils.translation import gettext_lazy as _
@@ -56,6 +57,27 @@ def adpost_reject(request, pk):
 class AdPostList(generic.ListView):
     model = models.AdPost
     template_name = 'adboard_site/adpost_list.html'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if self.request.GET.get('my') == 'owned':
+            queryset = queryset.filter(owner=self.request.user)
+        elif self.request.GET.get('my') == 'involved':
+            queryset = queryset.filter(buyer=self.request.user)
+        if self.request.GET.get('cid'):
+            queryset = queryset.filter(category=self.request.GET.get('cid'))
+        if self.request.GET.get('q'):
+            queryset = queryset.filter(
+                Q(title__icontains=self.request.GET.get('q')) |
+                Q(description__icontains=self.request.GET.get('q'))
+            )
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.GET.get('cid'):
+            context['category'] = get_object_or_404(models.Category, id=self.request.GET.get('cid'))
+        return context
 
 
 class AdPostDetail(generic.DetailView):

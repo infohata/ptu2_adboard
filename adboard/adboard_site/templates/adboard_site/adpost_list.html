@@ -2,7 +2,25 @@
 {% load i18n %}
 {% block content %}
 <div class="container">
+    {% if category %}
+    <h1>{{ category }} {% trans "ad posts" %}</h1>
+    {% elif request.GET.my and request.GET.my == "owned" %}
+    <h1>{% trans "my ad posts"|capfirst %}</h1>
+    {% elif request.GET.my and request.GET.my == "involved" %}
+    <h1>{% trans "my purchases"|capfirst %}</h1>
+    {% else %}
     <h1>{% trans "most recent ad posts"|capfirst %}</h1>
+    {% endif %}
+    <form action="" method="get" class="mb-2">
+        <input type="text" name="q" value="{{ request.GET.q }}" class="form-control d-inline" style="width:90%;" placeholder="{% trans "search ad posts..."|capfirst %}">
+        <button type="submit" class="btn btn-outline-secondary" style="width:9%;">{% trans "find" %}</button>
+        {% if request.GET.my %}
+            <input type="hidden" name="my" value="{{ request.GET.my }}">
+        {% endif %}
+        {% if request.GET.cid %}
+            <input type="hidden" name="cid" value="{{ request.GET.cid }}">
+        {% endif %}
+    </form>
     {% if adpost_list %}
         <ul class="list-group">
         {% for adpost in adpost_list %}
