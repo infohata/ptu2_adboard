@@ -12,7 +12,10 @@ class AdPostForm(forms.ModelForm):
         }
 
 
-class AdPostUpdateForm(AdPostForm):
+class AdPostUpdateForm(forms.ModelForm):
     class Meta:
-        fields = ('title', 'status', 'price', 'categpry', 'description')
-
+        model = models.AdPost
+        fields = ('title', 'status', 'price', 'category', 'description')
+        widgets = {
+            'description': TinyMCE(),
+        }

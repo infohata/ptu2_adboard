@@ -72,3 +72,15 @@ class AdPostCreate(LoginRequiredMixin, generic.CreateView):
         form.instance.owner = self.request.user
         form.instance.status = models.ADPOST_STATUS.new
         return super().form_valid(form)
+
+
+class AdPostEdit(UserPassesTestMixin, LoginRequiredMixin, generic.UpdateView):
+    model = models.AdPost
+    form_class = forms.AdPostUpdateForm
+    template_name = 'adboard_site/adpost_create.html'
+
+    def test_func(self):
+        return self.get_object().owner == self.request.user and \
+            (self.get_object().status < 20 or \
+                (self.get_object().status > 30 and self.get_object() < 99)
+            )

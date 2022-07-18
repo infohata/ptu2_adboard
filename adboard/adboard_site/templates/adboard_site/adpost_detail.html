@@ -11,6 +11,8 @@
             {% if object.status == 20 %}
                 <a href="{% url 'adpost_sell' object.id %}" class="btn btn-success">{% trans "accept purchase and sell"|capfirst %}</a>
                 <a href="{% url 'adpost_reject' object.id %}" class="btn btn-outline-danger">{% trans "reject offer"|capfirst %}</a>
+            {% elif object.status != 30 and object.status < 99 %}
+                <a href="{% url 'adpost_edit' object.id %}" class="btn btn-primary">{% trans "edit"|capfirst %}</a>
             {% endif %}
         {% else %}
             {% if object.status < 20 and object.buyer != request.user %}
