@@ -2,7 +2,7 @@
 FROM python:slim-buster
 WORKDIR /app
 COPY ./adboard .
-COPY ./requirements.txt .
+# COPY ./requirements.txt .
 RUN apt update && apt upgrade
 RUN pip install -r requirements.txt
 # RUN python manage.py collectstatic --noinput

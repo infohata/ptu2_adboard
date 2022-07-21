@@ -86,8 +86,14 @@ WSGI_APPLICATION = 'adboard.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        "ENGINE": "django.db.backends.postgresql",
+        "HOST": "postgres",
+        "NAME": "adboard",
+        "USER": "adboard",
+        "PASSWORD": local_settings.DATABASE_PASSWORD,
+        "PORT": 5432,
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
