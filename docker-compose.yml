@@ -37,8 +37,10 @@ services:
     restart: always
     ports:
       - 80:80
+      - 443:443
     links:
       - adboard:adboard
     volumes:
       - ./adboard/media:/app/media
       - ./adboard/static:/app/static
+      - ./nginx/letsencrypt:/etc/letsencrypt

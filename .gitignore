@@ -1,3 +1,6 @@
+# letsencrypt certs
+nginx/letsencrypt/live/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
