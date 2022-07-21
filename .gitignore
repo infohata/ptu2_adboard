@@ -63,6 +63,7 @@ db.sqlite3-journal
 media/
 adboard/static/**
 dbdata/
+adboard/fixtures/*backup*
 
 # Flask stuff:
 instance/
