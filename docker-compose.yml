@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  adboard:
+    build: .
+    image: python:adboard
+    container_name: adboard.python
+    tty: true
+    stdin_open: true
+    restart: always
+    ports:
+      - 8000:8000
+    volumes:
+      - ./adboard:/app
+    command: >
+      bash -c "python manage.py migrate &&
+               python manage.py collectstatic --noinput &&
+               gunicorn adboard.wsgi -w 7 --bind 0.0.0.0:8000"
+  nginx:
+    build: ./nginx/
+    image: nginx:adboard
+    container_name: adboard.nginx
+    restart: always
+    ports:
+      - 80:80
+    links:
+      - adboard:adboard
+    volumes:
+      - ./adboard/media:/app/media
+      - ./adboard/static:/app/static
