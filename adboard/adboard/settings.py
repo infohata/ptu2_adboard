@@ -26,9 +26,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = local_settings.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', 'adboard.local', 'adboard.midonow.fi']
+CSRF_TRUSTED_ORIGINS = ['https://adboard.midonow.fi']
 
 # Application definition
 
